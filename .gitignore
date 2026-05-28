@@ -13,3 +13,4 @@ Thumbs.db
 appBuild.py
 appPreDeploy.py
 assets/
+core/transcriber_whisper.py
