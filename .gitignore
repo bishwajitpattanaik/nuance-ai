@@ -14,3 +14,6 @@ appBuild.py
 appPreDeploy.py
 assets/
 core/transcriber_whisper.py
+requirementsPreDeploy.txt
+transcriberPreDeploy.py
+audio_processorPreDeploy.py

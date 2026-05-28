@@ -1,15 +1,10 @@
 # Python >= 3.10 recommended
 
 # ── Audio / Video acquisition ─────────────────────────────────────────────────
-yt-dlp>=2024.11.4                 # Download audio from YouTube URLs
 pydub>=0.25.1                     # Audio file manipulation / format conversion
-ffmpeg-python>=0.2.0              # FFmpeg bindings (FFmpeg binary via packages.txt)
-pytubefix>=6.0.0
 
-# ── Speech-to-Text (local Whisper) ────────────────────────────────────────────
-openai-whisper>=20250625          # OpenAI Whisper (runs locally)
-torch>=2.9.0                      # PyTorch backend for Whisper — CPU only on Streamlit Cloud
-torchvision>=0.20.0
+# ── Speech-to-Text (Groq Whisper API) ────────────────────────────────────────
+groq>=0.9.0                       # Groq Python client (Whisper cloud API)
 
 # ── Translation (Hindi → English) ─────────────────────────────────────────────
 deep-translator>=1.11.4           # Lightweight translation wrapper (Google backend)

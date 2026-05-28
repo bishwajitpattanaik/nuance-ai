@@ -18,7 +18,7 @@ def get_secret(key: str) -> str:
     return val
 
 # Inject secrets into env so all downstream modules (LangChain, Mistral, etc.) can read them
-for _k in ["MISTRAL_API_KEY", "SARVAM_API_KEY"]:
+for _k in ["MISTRAL_API_KEY", "SARVAM_API_KEY", "GROQ_API_KEY"]:
     if not os.getenv(_k):
         _v = get_secret(_k)
         if _v:
@@ -385,6 +385,7 @@ with st.sidebar:
     st.markdown('<div class="sb-sec">API Status</div>', unsafe_allow_html=True)
     for label, key in [
         ("Mistral AI", "MISTRAL_API_KEY"),
+        ("Groq AI (English STT)", "GROQ_API_KEY"),
         ("Sarvam AI (Hinglish)", "SARVAM_API_KEY"),
     ]:
         ok = bool(get_secret(key))

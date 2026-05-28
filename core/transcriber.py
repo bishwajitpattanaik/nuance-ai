@@ -1,6 +1,6 @@
-import whisper
 import os
 import requests
+from groq import Groq
 from pydub import AudioSegment
 
 # Sarvam's sync STT-translate API rejects audio longer than 30s.
@@ -8,33 +8,37 @@ from pydub import AudioSegment
 SARVAM_PIECE_SECONDS = 25
 
 
-WHISPER_MODEL = os.getenv("WHISPER_MODEL", "small")
-
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_WHISPER_MODEL = os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3-turbo")
 
 SARVAM_API_KEY = os.getenv("SARVAM_API_KEY")
 SARVAM_STT_TRANSLATE_URL = "https://api.sarvam.ai/speech-to-text-translate"
 SARVAM_MODEL = os.getenv("SARVAM_STT_MODEL", "saaras:v2.5")
 
-_model = None
+_groq_client = None
 
 
-def load_model():
-
-    global _model  
-
-    if _model is None: 
-        print(f"Loading Whisper model: {WHISPER_MODEL} ...")
-        _model = whisper.load_model(WHISPER_MODEL) 
-        print("Whisper model loaded.")
-    return _model 
+def get_groq_client() -> Groq:
+    global _groq_client
+    if _groq_client is None:
+        if not GROQ_API_KEY:
+            raise RuntimeError("GROQ_API_KEY is not set in environment / .env")
+        _groq_client = Groq(api_key=GROQ_API_KEY)
+    return _groq_client
 
 
-def transcribe_chunk_whisper(chunk_path: str) -> str:
+def transcribe_chunk_groq(chunk_path: str) -> str:
+    """Send one audio chunk to Groq Whisper API using the official client."""
+    client = get_groq_client()
 
-    model = load_model()  
+    with open(chunk_path, "rb") as f:
+        transcription = client.audio.transcriptions.create(
+            file=(os.path.basename(chunk_path), f),
+            model=GROQ_WHISPER_MODEL,
+            response_format="text",
+        )
 
-    result = model.transcribe(chunk_path, task="transcribe")  
-    return result["text"]  
+    return transcription.strip()
 
 
 def _send_to_sarvam(piece_path: str) -> str:
@@ -94,20 +98,20 @@ def transcribe_chunk_sarvam(chunk_path: str) -> str:
 
 def transcribe_chunk(chunk_path: str, language: str = "english") -> str:
     """
-    Route one chunk to Whisper or Sarvam depending on language choice.
-    - english  → Whisper (local model)
+    Route one chunk to Groq or Sarvam depending on language choice.
+    - english  → Groq Whisper API (cloud)
     - hinglish → Sarvam (translates to English while transcribing)
     """
     if language.lower() == "hinglish":
         return transcribe_chunk_sarvam(chunk_path)
-    return transcribe_chunk_whisper(chunk_path)
+    return transcribe_chunk_groq(chunk_path)
 
 
 def transcribe_all(chunks: list, language: str = "english") -> str:
 
     full_transcript = "" 
 
-    engine = "Sarvam AI" if language.lower() == "hinglish" else "Whisper"
+    engine = "Sarvam AI" if language.lower() == "hinglish" else "Groq Whisper"
     print(f"Using {engine} for transcription.")
 
     for i, chunk in enumerate(chunks):  
@@ -120,4 +124,4 @@ def transcribe_all(chunks: list, language: str = "english") -> str:
 
     print("Transcription complete.")
 
-    return full_transcript.strip()  
+    return full_transcript.strip()
