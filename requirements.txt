@@ -4,6 +4,7 @@
 yt-dlp>=2024.11.4                 # Download audio from YouTube URLs
 pydub>=0.25.1                     # Audio file manipulation / format conversion
 ffmpeg-python>=0.2.0              # FFmpeg bindings (FFmpeg binary via packages.txt)
+pytubefix>=6.0.0
 
 # ── Speech-to-Text (local Whisper) ────────────────────────────────────────────
 openai-whisper>=20250625          # OpenAI Whisper (runs locally)
