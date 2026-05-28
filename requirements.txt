@@ -8,6 +8,7 @@ ffmpeg-python>=0.2.0              # FFmpeg bindings (FFmpeg binary via packages.
 # ── Speech-to-Text (local Whisper) ────────────────────────────────────────────
 openai-whisper>=20250625          # OpenAI Whisper (runs locally)
 torch>=2.9.0                      # PyTorch backend for Whisper — CPU only on Streamlit Cloud
+torchvision>=0.20.0
 
 # ── Translation (Hindi → English) ─────────────────────────────────────────────
 deep-translator>=1.11.4           # Lightweight translation wrapper (Google backend)
