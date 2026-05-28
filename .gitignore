@@ -1,0 +1,15 @@
+.env
+.streamlit/secrets.toml
+.venv/
+venv/
+downloads/
+vector_db/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+Thumbs.db
+.streamlit/cache/
+appBuild.py
+appPreDeploy.py
+assets/
