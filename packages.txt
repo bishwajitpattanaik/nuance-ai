@@ -1,2 +1,3 @@
 ffmpeg
 libffi-dev
+nodejs
