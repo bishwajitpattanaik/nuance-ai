@@ -517,6 +517,8 @@ with tab1:
     if go:
         if not source_val:
             st.markdown('<div class="awarn">⚠️ Provide a URL or upload a file first.</div>', unsafe_allow_html=True)
+        elif src_type == "YouTube / Web URL":
+            st.markdown('<div class="aerr">⚠️ Due to YouTube\'s IP blocking of cloud servers and Streamlit Cloud\'s network restrictions, YouTube downloading is disabled on this app, restrictions from YouTube\'s side and the maintenance cost at scale make it unsustainable to keep live. We apologize for the inconvenience, please upload your audio/video file directly instead.</div>', unsafe_allow_html=True)
         else:
             st.session_state.t1_processing = True
             st.session_state.t1_result = None
@@ -607,6 +609,8 @@ with tab2:
         if not t2_source:
             st.markdown('<div class="awarn">⚠️ Provide a URL or upload a file first.</div>',
                         unsafe_allow_html=True)
+        elif t2_src == "YouTube / Web URL":
+            st.markdown('<div class="aerr">⚠️ Due to YouTube\'s IP blocking of cloud servers and Streamlit Cloud\'s network restrictions, YouTube downloading is disabled on this app, restrictions from YouTube\'s side and the maintenance cost at scale make it unsustainable to keep live. We apologize for the inconvenience, please upload your audio/video file directly instead.</div>', unsafe_allow_html=True)
         else:
             st.session_state.t2_processing = True
             st.session_state.t2_post_result = None
