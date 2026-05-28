@@ -27,15 +27,13 @@ for _k in ["MISTRAL_API_KEY", "SARVAM_API_KEY", "GROQ_API_KEY"]:
 # ─── Dependency pre-check (runs inside Streamlit's Python) ──────────────────────
 _REQUIRED = {
     "numpy":                "numpy",
-    "torch":                "torch",
-    "whisper":              "openai-whisper",
+    "groq":                 "groq",
     "chromadb":             "chromadb",
     "langchain":            "langchain",
     "langchain_mistralai":  "langchain-mistralai",
     "langchain_community":  "langchain-community",
     "langchain_huggingface":"langchain-huggingface",
     "sentence_transformers":"sentence-transformers",
-    "yt_dlp":               "yt-dlp",
     "pydub":                "pydub",
     "deep_translator":      "deep-translator",
     "mistralai":            "mistralai",
@@ -517,8 +515,6 @@ with tab1:
     if go:
         if not source_val:
             st.markdown('<div class="awarn">⚠️ Provide a URL or upload a file first.</div>', unsafe_allow_html=True)
-        elif src_type == "YouTube / Web URL":
-            st.markdown('<div class="aerr">⚠️ Due to YouTube\'s IP blocking of cloud servers and Streamlit Cloud\'s network restrictions, YouTube downloading is disabled on this app, restrictions from YouTube\'s side and the maintenance cost at scale make it unsustainable to keep live. We apologize for the inconvenience, please upload your audio/video file directly instead.</div>', unsafe_allow_html=True)
         else:
             st.session_state.t1_processing = True
             st.session_state.t1_result = None
@@ -609,8 +605,6 @@ with tab2:
         if not t2_source:
             st.markdown('<div class="awarn">⚠️ Provide a URL or upload a file first.</div>',
                         unsafe_allow_html=True)
-        elif t2_src == "YouTube / Web URL":
-            st.markdown('<div class="aerr">⚠️ Due to YouTube\'s IP blocking of cloud servers and Streamlit Cloud\'s network restrictions, YouTube downloading is disabled on this app, restrictions from YouTube\'s side and the maintenance cost at scale make it unsustainable to keep live. We apologize for the inconvenience, please upload your audio/video file directly instead.</div>', unsafe_allow_html=True)
         else:
             st.session_state.t2_processing = True
             st.session_state.t2_post_result = None
