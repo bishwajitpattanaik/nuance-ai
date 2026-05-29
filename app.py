@@ -27,15 +27,13 @@ for _k in ["MISTRAL_API_KEY", "SARVAM_API_KEY", "GROQ_API_KEY"]:
 # ─── Dependency pre-check (runs inside Streamlit's Python) ──────────────────────
 _REQUIRED = {
     "numpy":                "numpy",
-    "torch":                "torch",
-    "whisper":              "openai-whisper",
+    "groq":                 "groq",
     "chromadb":             "chromadb",
     "langchain":            "langchain",
     "langchain_mistralai":  "langchain-mistralai",
     "langchain_community":  "langchain-community",
     "langchain_huggingface":"langchain-huggingface",
     "sentence_transformers":"sentence-transformers",
-    "yt_dlp":               "yt-dlp",
     "pydub":                "pydub",
     "deep_translator":      "deep-translator",
     "mistralai":            "mistralai",
